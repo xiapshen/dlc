@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DLC 分布式日志搜集系统 - 新增日志源</title>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <base target="_self">
+
+    <style>
+        .droppable-active{background-color:#ffe!important}.tools a{cursor:pointer;font-size:80%}.form-body .col-md-6,.form-body .col-md-12{min-height:400px}.draggable{cursor:move}
+    </style>
+
+</head>
+
+<body class="gray-bg">
+    <input id="message" type="hidden" value="${message!}"/>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>日志源 / 新增</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form role="form" class="form-horizontal m-t" action="/dlc/logsource/insert" method="post">
+                            <div class="form-group draggable">
+                                <label class="col-sm-3 control-label">日志源：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="appName" class="form-control" placeholder="请输入日志源" required>
+                                </div>
+                            </div>
+                            <div class="form-group draggable">
+                                <label class="col-sm-3 control-label">默认：
+                                </label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="default" id="optionsRadios1" name="selected">是</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" checked="" value="" id="optionsRadios2" name="selected">否</label>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group draggable">
+                                <div class="col-sm-12 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">新增</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="/js/content.min.js?v=1.0.0"></script>
+    <script src="/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			if ($("input[id='message']").val() == "success") {
+				swal({
+					title : "太帅了",
+					text : "新增成功！",
+					type : "success"
+				})
+			}
+		});
+	</script>
+</body>
+
+</html>

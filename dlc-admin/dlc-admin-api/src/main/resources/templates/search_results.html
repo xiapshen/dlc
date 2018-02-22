@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DLC 分布式日志搜集系统 - 搜索</title>
+<style type="text/css">
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+<link rel="shortcut icon" href="/static/favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<!-- Sweet Alert -->
+<link href="/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="/css/animate.min.css" rel="stylesheet">
+<link href="/css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_self">
+</head>
+
+<body class="gray-bg">
+	<input id="message" type="hidden" value="${message!}" />
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="wrapper wrapper-content animated fadeInUp">
+				<div class="ibox-content m-b-sm border-bottom">
+					<h2>
+						为您找到相关日志记录约${dlcLogResult.pageBean.totalCount!0}个： <span
+							class="text-navy">${dlcLogResult.keyWord}</span>
+					</h2>
+					<small>搜索用时 (${dlcLogResult.searchTime}秒)</small>
+
+					<div class="search-form">
+						<form action="/dlc/log/query" method="post">
+							<div class="input-group">
+								<input type="text" placeholder="输入关键字" name="keyWord"
+									class="form-control input-lg" value="${dlcLogResult.keyWord}"
+									value="*" required=""> <input type="text"
+									name="pageNum" value="1" hidden /> <input type="text"
+									name="numPerPage" value="50" hidden />
+
+								<div class="input-group-btn">
+									<button class="btn btn-lg btn-primary" type="submit">
+										搜一搜吧</button>
+								</div>
+							</div>
+						</form>
+						<!-- 查询字段 -->
+						<#if (queryConditions?size>0)>
+						<h5>可选查询字段:</h5>
+						<ul class="tag-list" style="padding: 0">
+							<#list queryConditions as queryCondition>
+							<li><a href="#"><i class="fa fa-tag"></i>
+									${queryCondition}</a></li> </#list>
+						</ul>
+						</#if>
+					</div>
+				</div>
+				<#if (dlcLogResult.pageBean.recordList?size>0)>
+				<!-- 分布式日志搜索结果渲染 -->
+				<#list dlcLogResult.pageBean.recordList as dlcLogBaseResult>
+
+				<div class="faq-item">
+					<div class="row">
+						<div class="col-md-7">
+							<a data-toggle="collapse"
+								href="search_results.html.html#faq${dlcLogBaseResult_index}"
+								class="faq-question"> <#if dlcLogBaseResult.content?length
+								gt 512> ${dlcLogBaseResult.content?substring(0, 512)}... <#else>
+								${dlcLogBaseResult.content!} </#if> </a> <small> <strong>
+									服务器IP：${dlcLogBaseResult.hostIP!},
+									日志来源：${dlcLogBaseResult.systemName!}, 记录时间：<i
+									class="fa fa-clock-o"></i>${dlcLogBaseResult.logRecordTime!}
+							</strong>
+							</small>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div id="faq${dlcLogBaseResult_index}"
+								class="panel-collapse collapse faq-answer">
+								<p>${dlcLogBaseResult.content!}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				</#list>
+				<!-- 分布式日志搜索结果渲染结束 -->
+				<div class="hr-line-dashed"></div>
+				<div class="text-center">
+					<div class="btn-group">
+						<button class="btn btn-white" type="button">
+							<i class="fa fa-chevron-left"></i>
+						</button>
+						<#assign parent = dlcLogResult.pageBean.currentPage/> <#list
+						1..dlcLogResult.pageBean.totalPage as currentPage>
+						<#setting number_format="#">
+						<button
+							class="btn btn-white <#if (currentPage==parent)>active</#if>"
+							onclick="javascript:getwith('/dlc/log/query',{'keyWord':'${dlcLogResult.keyWord}', 'pageNum':'${currentPage}', 'numPerPage':'50'})">
+							${currentPage}</button>
+						</#list>
+						<button class="btn btn-white" type="button">
+							<i class="fa fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+				<#else>
+				<div class="search-result">
+					<h3 align="center">抱歉！没有找到"${dlcLogResult.keyWord}"有关的日志记录或者日志源不存在！
+					</h3>
+				</div>
+				</#if>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/bootstrap.min.js?v=3.3.5"></script>
+	<script src="/js/content.min.js?v=1.0.0"></script>
+	<script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if ($("input[id='message']").val() !== '') {
+				swal({
+					title : "Warning",
+					text : $("input[id='message']").val()
+				})
+			}
+		});
+		function getwith(to, p) {
+			var myForm = document.createElement("form");
+			myForm.method = "post";
+			myForm.action = to;
+			for ( var k in p) {
+				var myInput = document.createElement("input");
+				myInput.setAttribute("name", k);
+				myInput.setAttribute("value", p[k]);
+				myForm.appendChild(myInput);
+			}
+			document.body.appendChild(myForm);
+			myForm.submit();
+			document.body.removeChild(myForm);
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--设置log4j2的自身log级别为warn-->
+<Configuration packages="com.happygo.dlc.logging">
+
+    <Appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </console>
+
+        <!-- dlc-core自定义LuceneAppender -->
+        <Lucene name="LuceneAppender" target="F:\\lucene_index_log4j2">
+            <IndexField name="level" pattern="%-5level"/>
+            <IndexField name="time" pattern="%d{UNIX_MILLIS}" type="LongField"/>
+            <IndexField name="content" pattern="%p %c - %m%n"/>
+            <IndexField name="systemName" pattern="demo-log4j2"/>
+        </Lucene>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="LuceneAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>DLC 分布式日志搜集系统 - 标签墙</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+<link href="/css/animate.min.css" rel="stylesheet">
+<link href="/css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_blank">
+
+</head>
+
+<body class="gray-bg">
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="logo-name" style="margin:0 auto; width:600px; height:160px;"></h2>
+			<div class="wrapper wrapper-content animated fadeInUp">
+				<ul class="notes">
+					<li>
+						<div>
+							<h4>资源占用少</h4>
+							<p>日志的记录过程，和常规日志的记录没多大区别，没有额外的CPU和内存占用，唯一有较大消耗的，是Lucene的索引文件需要占用磁盘空间，如果对占用磁盘空间敏感，或者对日志的长期保存没有严格要求，可以设定索引过期时间，超期的索引会被删除.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h4>部署简单</h4>
+							<p>客户端采用web应用闭环，直接上传到服务器，运行bin目录下脚本即可运行.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h4>灵活性强</h4>
+							<p>可以根据需要，在日志配置文件中进行灵活的配置，可以配置记录哪些项目，什么格式等.</p>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h4>自动建立集群</h4>
+							<p>dlc-core模块和用户应用集成，应用启动过程中通过TCP检测自动发现并建立集群.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/bootstrap.min.js?v=3.3.5"></script>
+	<script src="/js/content.min.js?v=1.0.0"></script>
+</body>
+
+</html>

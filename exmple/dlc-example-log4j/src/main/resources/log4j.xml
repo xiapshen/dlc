@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+<log4j:configuration>
+	<!--输出到控制台 -->
+	<appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+		</layout>
+	</appender>
+
+    <!-- 自定义LuceneAppender -->
+	<appender name="luceneAppender" class="com.happygo.dlc.logging.Log4jLuceneAppender">
+		<param name="Target" value="F:\\lucene_index" />
+		<param name="SystemName" value="demo-log4j" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+		</layout>
+	</appender>
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="luceneAppender" />
+	</root>
+</log4j:configuration>

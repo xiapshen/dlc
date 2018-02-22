@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DLC 分布式日志搜集系统 - 健康检测</title>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <base target="_self">
+
+</head>
+
+<body class="gray-bg">
+<input id="message" type="hidden" value="${message!}"/>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>系统信息 / 健康检测</h5>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p>
+                        当前系统：
+                        <#if healthInfo.status=='UP'>
+                            <a class="btn btn-primary btn-rounded" href="health.html#">${healthInfo.status!}</a>
+                            <#elseif healthInfo.status=='DOWN'>
+                                <a class="btn btn-danger btn-rounded" href="health.html#">${healthInfo.status!}</a>
+                                <#else>
+                                    <a class="btn btn-warning btn-rounded" href="health.html#">${healthInfo.status!}</a>
+                        </#if>
+                    </p>
+                    外部依赖系统：
+                    <ul>
+                        <li>
+                            DiskSpace
+                            <#if healthInfo.diskSpace.status=='UP'>
+                                <a class="btn btn-primary btn-rounded" href="health.html#">${healthInfo.diskSpace.status!}</a>
+                                <#elseif healthInfo.diskSpace.status=='DOWN'>
+                                    <a class="btn btn-danger btn-rounded" href="health.html#">${healthInfo.diskSpace.status!}</a>
+                                    <#else>
+                                        <a class="btn btn-warning btn-rounded" href="health.html#">${healthInfo.diskSpace.status!}</a>
+                            </#if>
+                        <li>${healthInfo.db.database!}
+                            <#if healthInfo.db.status=='UP'>
+                                <a class="btn btn-primary btn-rounded" href="health.html#">${healthInfo.db.status!}</a>
+                                <#elseif healthInfo.db.status=='DOWN'>
+                                    <a class="btn btn-danger btn-rounded"
+                                       href="health.html#">${healthInfo.db.status!}</a>
+                                    <#else>
+                                        <a class="btn btn-warning btn-rounded" href="health.html#">${healthInfo.db.status!}</a>
+                            </#if>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary btn-rounded btn-block" href="health.html#"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="/js/content.min.js?v=1.0.0"></script>
+<script src="/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/js/plugins/beautifyhtml/beautifyhtml.js"></script>
+<script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+</body>
+
+</html>

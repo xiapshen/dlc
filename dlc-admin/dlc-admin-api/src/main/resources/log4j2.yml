@@ -1,0 +1,36 @@
+Configutation:
+  name: Default
+  packages: com.happygo.dlc.log
+  Properties:
+    Property:
+      name: log-path
+      value: "./../logs"
+ 
+  Appenders:
+ 
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+ 
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-path}/dlc.log
+        filePattern: "${log-path}/archive/dlc.log.%d{yyyy-MM-dd-hh-mm}.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 100 MB
+        DefaultRollOverStrategy:
+          max: 10000
+ 
+  Loggers:
+ 
+      Root:
+        level: info
+        additivity: true
+        AppenderRef:
+          - ref: Console_Appender
+          - ref: RollingFile_Appender

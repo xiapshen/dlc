@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.happygo.dlc.dal.mybatis.mapper.LogSourceMapper">
+    <resultMap id="BaseResultMap" type="com.happygo.dlc.common.entity.LogSource">
+        <id column="ID" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="APP_NAME" property="appName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="SELECTED" property="selected" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 插入日志源 -->
+    <insert id="insert" parameterType="com.happygo.dlc.common.entity.LogSource">
+        <selectKey keyProperty="id" order="BEFORE" resultType="int">
+            <![CDATA[SELECT LOG_SOURCE_SEQ.NEXTVAL FROM dual]]>
+        </selectKey>
+        INSERT INTO LOG_SOURCE (ID, APP_NAME, SELECTED)
+        VALUES (#{id, jdbcType=INTEGER}, #{appName, jdbcType=VARCHAR}, #{selected, jdbcType=VARCHAR})
+    </insert>
+
+    <!-- 查询默认的日志源信息 -->
+    <select id="selectBy" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM LOG_SOURCE WHERE
+                         SELECTED = #{selected, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 查询所有的日志源-->
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM LOG_SOURCE
+    </select>
+
+    <!-- 根据id删除日志源 -->
+    <delete id="deleteByPrimaryKey" parameterType="int" >
+        DELETE FROM LOG_SOURCE
+                        WHERE ID = #{id, jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 更新日志源的默认信息 -->
+    <update id="updateByPrimaryKey" parameterType="com.happygo.dlc.common.entity.LogSource">
+        UPDATE LOG_SOURCE SET  SELECTED = #{selected, jdbcType=VARCHAR}
+                        WHERE ID = #{id, jdbcType=INTEGER}
+    </update>
+</mapper>
