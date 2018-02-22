@@ -42,7 +42,6 @@ Distributed Log Collected——分布式日志搜集系统（DLC）
 
 ## 6.文档 ## demo
 > *  gitbooks-io：link to [dlc.io](https://dlc.gitbooks.io/dlc-user-book/content/)
-> *  wiki：link to [wiki](https://github.com/xiapshen/dlc/wiki)
 > *  demo：link to [dlc-demo](https://github.com/xiapshen/dlc/tree/master/exmple)
 
 ## 7.FAQ
